@@ -10,7 +10,8 @@
         category: 'actor',
         query: '',
         movies: [],
-        details: {}
+        details: {},
+        watchLater: []
       }
     },
     methods:{
@@ -34,6 +35,16 @@
       },
       clearDetails: function(){
         this.details = {}
+      },
+      addWatchLater: function (movie) {
+        this.watchLater.push(movie)
+      },
+      removeWatchLater: function (movie) {
+        this.watchLater.foreach((m, i) => {
+          if (m.show_title === movie.show_title) {
+            this.watchLater.splice(i,1)
+          }
+        })
       }
     }
   })

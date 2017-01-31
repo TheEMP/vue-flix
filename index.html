@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <title>VueFlix</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
 </head>
 
 <body class="container">
@@ -32,6 +34,25 @@
       <div class="col-sm-12">
         <div class="panel panel-default">
           <div class="panel-heading">
+            <h3>Watch Later!</h3>
+            <p>Now Viewing {{watchLater.length}} of your saved movies!</p>
+
+          </div>
+          <div class="panel-body">
+            <div v-if="watchLater.length > 0">
+              <div class="list-group">
+                <div class="list-group-item" v-for="movie in watchLater" @click="setDetails(movie)">
+                  <img :src="movie.poster" height="150" :alt="movie.show_title">
+                  <h4>{{movie.show_title}}</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
             <h3>RESULTS</h3>
             <p>Now Viewing result for {{query}}</p>
 
@@ -56,13 +77,15 @@
                 <b>Cast:</b> {{details.show_cast}}
               </p>
               <button @click="clearDetails">BACK</button>
+              <button @click="addWatchLater(details)">Watch Later</button>
             </div>
 
             <div v-if="movies.length > 0">
-              <ul class="list-group"  v-if="!details.show_title">
+              <ul class="list-group" v-if="!details.show_title">
                 <li class="list-group-item" v-for="movie in movies" @click="setDetails(movie)">
-                  <img :src="movie.poster" height="150">
+                  <img :src="movie.poster" height="150" :alt="movie.show_title">
                   <h4>{{movie.show_title}}</h4>
+                 
                 </li>
               </ul>
             </div>
@@ -83,7 +106,7 @@
 
 
   <!--LOAD LIBRARIES-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.js"></script>
 
   <!--SERVICES-->
   <script src="app/services/flix-service.js"></script>
